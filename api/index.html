@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O BASE | Official Community Portal</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #090b10;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+    }
+
+    /* Radial background gradient glows */
+    .bg-glow-top {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(0, 208, 132, 0.2) 0%, rgba(123, 44, 191, 0.12) 50%, rgba(0,0,0,0) 75%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 28px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #00d084, #00b894);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #a0aec0;
+    }
+
+    .main-container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(36px, 5vw, 54px);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .hero-text h1 span {
+      background: linear-gradient(90deg, #00d084, #38ef7d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      color: #a0aec0;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e2e8f0;
+      font-size: 15px;
+    }
+
+    .features-list li::before {
+      content: "✓";
+      color: #00d084;
+      font-weight: bold;
+    }
+
+    /* Glassmorphism Card */
+    .checkout-card {
+      background: rgba(18, 22, 32, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .checkout-card h2 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .checkout-card p {
+      color: #a0aec0;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: #cbd5e0;
+      margin-bottom: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(10, 12, 18, 0.8);
+      color: #ffffff;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #00d084;
+      box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.2);
+    }
+
+    .btn-pay {
+      width: 100%;
+      padding: 18px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #00d084, #00b894);
+      color: #05100a;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-pay:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 208, 132, 0.35);
+    }
+
+    .btn-pay:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #statusMessage {
+      margin-top: 20px;
+      font-size: 14px;
+      text-align: center;
+      font-weight: 600;
+      line-height: 1.4;
+      min-height: 24px;
+    }
+
+    .status-loading { color: #ffcf33; }
+    .status-success { color: #00d084; }
+    .status-error { color: #ff6b6b; }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #4a5568;
+      font-size: 14px;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 850px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow-top"></div>
+
+  <header>
+    <div class="logo">O BASE</div>
+    <div class="nav-badge">M-Pesa Connected</div>
+  </header>
+
+  <main class="main-container">
+    <div class="hero-text">
+      <h1>Together We Build, <span>Together We Grow.</span></h1>
+      <p>Welcome to the official O BASE portal. Initiate fast and secure transactions powered directly by Safaricom M-Pesa Express.</p>
+      
+      <ul class="features-list">
+        <li>Instant M-Pesa STK push notification</li>
+        <li>Encrypted & serverless execution on Vercel</li>
+        <li>Automatic phone number standardisation</li>
+      </ul>
+    </div>
+
+    <div class="checkout-card">
+      <h2>Express M-Pesa Checkout</h2>
+      <p>Enter your phone number to receive a prompt on your phone.</p>
+
+      <form id="payForm">
+        <div class="form-group">
+          <label for="phone">M-Pesa Phone Number</label>
+          <input type="tel" id="phone" placeholder="0712345678 or 0700000000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount (KSh)</label>
+          <input type="number" id="amount" min="1" placeholder="100" required>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-pay">Pay with M-Pesa</button>
+        <div id="statusMessage"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 O BASE Portal. Hosted on Vercel & Safaricom Daraja API.
+  </footer>
+
+  <script>
+    const form = document.getElementById("payForm");
+    const btn = document.getElementById("submitBtn");
+    const status = document.getElementById("statusMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      btn.disabled = true;
+      status.className = "status-loading";
+      status.textContent = "Connecting to Safaricom M-Pesa...";
+
+      try {
+        const response = await fetch("/api/stk-push", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            phone: document.getElementById("phone").value,
+            amount: document.getElementById("amount").value
+          })
+        });
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error(`Route error (${response.status}). Verify /api/stk-push.js is pushed to GitHub.`);
+        }
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "M-Pesa payment initiation failed.");
+        }
+
+        status.className = "status-success";
+        status.textContent = "🚀 STK Push sent! Check your phone and enter your M-Pesa PIN.";
+        form.reset();
+
+      } catch (err) {
+        status.className = "status-error";
+        status.textContent = err.message;
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
