@@ -3,191 +3,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O BASE | Official Community Portal</title>
+  <title>O BASE | Official Portal</title>
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    :root {
+      --bg-dark: #07090e;
+      --card-bg: rgba(15, 20, 32, 0.7);
+      --mpesa-green: #00d084;
+      --mpesa-hover: #00b894;
+      --accent-purple: #7b2cbf;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-light: rgba(255, 255, 255, 0.08);
     }
 
     body {
-      background: #090b10;
-      color: #ffffff;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Radial background gradient glows */
-    .bg-glow-top {
+    /* Animated background ambient lights */
+    .ambient-glow-1 {
       position: absolute;
-      top: -150px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(0, 208, 132, 0.2) 0%, rgba(123, 44, 191, 0.12) 50%, rgba(0,0,0,0) 75%);
-      z-index: 0;
+      top: -100px;
+      left: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 208, 132, 0.15) 0%, transparent 70%);
       pointer-events: none;
+      z-index: 0;
+    }
+
+    .ambient-glow-2 {
+      position: absolute;
+      bottom: 50px;
+      right: 5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(123, 44, 191, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     header {
-      padding: 28px 8%;
+      padding: 24px 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: relative;
       z-index: 10;
+      border-bottom: 1px solid var(--border-light);
+      backdrop-filter: blur(10px);
     }
 
-    .logo {
-      font-size: 24px;
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 22px;
       font-weight: 900;
-      letter-spacing: 3px;
-      background: linear-gradient(90deg, #00d084, #00b894);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
     }
 
-    .nav-badge {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 6px 16px;
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--mpesa-green), var(--accent-purple));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 208, 132, 0.3);
+    }
+
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 208, 132, 0.1);
+      border: 1px solid rgba(0, 208, 132, 0.3);
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 13px;
-      color: #a0aec0;
+      font-size: 12px;
+      color: var(--mpesa-green);
+      font-weight: 600;
     }
 
-    .main-container {
-      max-width: 1100px;
-      margin: 20px auto;
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--mpesa-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--mpesa-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    .main-wrapper {
+      max-width: 1200px;
+      margin: 40px auto;
       padding: 0 24px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
       align-items: center;
       position: relative;
       z-index: 10;
     }
 
-    .hero-text h1 {
-      font-size: clamp(36px, 5vw, 54px);
-      line-height: 1.15;
-      margin-bottom: 20px;
+    /* Left Content Styling */
+    .hero-info h1 {
+      font-size: clamp(38px, 4.5vw, 56px);
+      line-height: 1.1;
       font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
     }
 
-    .hero-text h1 span {
-      background: linear-gradient(90deg, #00d084, #38ef7d);
+    .hero-info h1 .highlight {
+      background: linear-gradient(135deg, var(--mpesa-green), #38ef7d);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-text p {
-      color: #a0aec0;
-      font-size: 17px;
+    .hero-info p {
+      color: var(--text-muted);
+      font-size: 18px;
       line-height: 1.6;
-      margin-bottom: 30px;
+      margin-bottom: 36px;
     }
 
-    .features-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
     }
 
-    .features-list li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #e2e8f0;
-      font-size: 15px;
+    .stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 16px;
     }
 
-    .features-list li::before {
-      content: "✓";
-      color: #00d084;
-      font-weight: bold;
+    .stat-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
     }
 
-    /* Glassmorphism Card */
-    .checkout-card {
-      background: rgba(18, 22, 32, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Right M-Pesa Terminal Styling */
+    .terminal-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-light);
+      border-radius: 28px;
       padding: 40px 32px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+      position: relative;
     }
 
-    .checkout-card h2 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .checkout-card p {
-      color: #a0aec0;
-      font-size: 14px;
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .terminal-title h2 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .terminal-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .mpesa-badge {
+      background: #e8f7f0;
+      color: #008000;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
     }
 
     .form-group {
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .form-group label {
       display: block;
       font-size: 12px;
-      color: #cbd5e0;
+      color: var(--text-muted);
       margin-bottom: 8px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
 
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
     .form-group input {
       width: 100%;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(10, 12, 18, 0.8);
-      color: #ffffff;
+      padding: 16px 16px 16px 44px;
+      border-radius: 14px;
+      border: 1px solid var(--border-light);
+      background: rgba(8, 10, 16, 0.8);
+      color: var(--text-main);
       font-size: 16px;
       outline: none;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .form-group input:focus {
-      border-color: #00d084;
-      box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.2);
+      border-color: var(--mpesa-green);
+      box-shadow: 0 0 0 3px rgba(0, 208, 132, 0.15);
     }
 
-    .btn-pay {
+    .quick-amounts {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip:hover {
+      background: rgba(0, 208, 132, 0.1);
+      border-color: var(--mpesa-green);
+      color: var(--mpesa-green);
+    }
+
+    .btn-submit {
       width: 100%;
       padding: 18px;
-      border-radius: 12px;
+      border-radius: 14px;
       border: none;
-      background: linear-gradient(135deg, #00d084, #00b894);
-      color: #05100a;
+      background: linear-gradient(135deg, var(--mpesa-green), var(--mpesa-hover));
+      color: #03140a;
       font-size: 16px;
       font-weight: 800;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
-    .btn-pay:hover {
+    .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0, 208, 132, 0.35);
+      box-shadow: 0 12px 30px rgba(0, 208, 132, 0.3);
     }
 
-    .btn-pay:disabled {
+    .btn-submit:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
@@ -203,63 +325,106 @@
     }
 
     .status-loading { color: #ffcf33; }
-    .status-success { color: #00d084; }
+    .status-success { color: var(--mpesa-green); }
     .status-error { color: #ff6b6b; }
 
     footer {
       text-align: center;
-      padding: 30px;
-      color: #4a5568;
-      font-size: 14px;
+      padding: 28px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border-light);
       position: relative;
       z-index: 10;
     }
 
-    @media (max-width: 850px) {
-      .main-container {
+    @media (max-width: 900px) {
+      .main-wrapper {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 40px;
+        margin: 20px auto;
+      }
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-glow-top"></div>
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
 
   <header>
-    <div class="logo">O BASE</div>
-    <div class="nav-badge">M-Pesa Connected</div>
+    <div class="brand-logo">
+      <div class="brand-mark">O</div>
+      <span>O BASE</span>
+    </div>
+    <div class="nav-status">
+      <div class="status-dot"></div>
+      <span>Daraja API Active</span>
+    </div>
   </header>
 
-  <main class="main-container">
-    <div class="hero-text">
-      <h1>Together We Build, <span>Together We Grow.</span></h1>
-      <p>Welcome to the official O BASE portal. Initiate fast and secure transactions powered directly by Safaricom M-Pesa Express.</p>
+  <main class="main-wrapper">
+    <!-- Left Column: Vision & Metrics -->
+    <div class="hero-info">
+      <h1>Together We Build, <br><span class="highlight">Together We Grow.</span></h1>
+      <p>Welcome to the official O BASE platform. Support community initiatives and contribute instantly via Safaricom M-Pesa Express.</p>
       
-      <ul class="features-list">
-        <li>Instant M-Pesa STK push notification</li>
-        <li>Encrypted & serverless execution on Vercel</li>
-        <li>Automatic phone number standardisation</li>
-      </ul>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-value">Instant</div>
+          <div class="stat-label">STK Push</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">254</div>
+          <div class="stat-label">Auto Format</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">256-bit</div>
+          <div class="stat-label">Encrypted</div>
+        </div>
+      </div>
     </div>
 
-    <div class="checkout-card">
-      <h2>Express M-Pesa Checkout</h2>
-      <p>Enter your phone number to receive a prompt on your phone.</p>
+    <!-- Right Column: M-Pesa Payment Terminal -->
+    <div class="terminal-card">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <h2>Express Checkout</h2>
+          <p>Instant M-Pesa PIN prompt</p>
+        </div>
+        <div class="mpesa-badge">M-PESA</div>
+      </div>
 
       <form id="payForm">
         <div class="form-group">
-          <label for="phone">M-Pesa Phone Number</label>
-          <input type="tel" id="phone" placeholder="0712345678 or 0700000000" required>
+          <label for="phone">Phone Number</label>
+          <div class="input-wrapper">
+            <span class="input-icon">📱</span>
+            <input type="tel" id="phone" placeholder="07XXXXXXXX or 01XXXXXXXX" required>
+          </div>
         </div>
 
         <div class="form-group">
           <label for="amount">Amount (KSh)</label>
-          <input type="number" id="amount" min="1" placeholder="100" required>
+          <div class="input-wrapper">
+            <span class="input-icon">KSh</span>
+            <input type="number" id="amount" min="1" placeholder="100" required>
+          </div>
+          <div class="quick-amounts">
+            <button type="button" class="chip" onclick="setAmount(50)">50</button>
+            <button type="button" class="chip" onclick="setAmount(100)">100</button>
+            <button type="button" class="chip" onclick="setAmount(500)">500</button>
+            <button type="button" class="chip" onclick="setAmount(1000)">1000</button>
+          </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn-pay">Pay with M-Pesa</button>
+        <button type="submit" id="submitBtn" class="btn-submit">
+          <span>Pay with M-Pesa</span>
+        </button>
+
         <div id="statusMessage"></div>
       </form>
     </div>
@@ -273,6 +438,10 @@
     const form = document.getElementById("payForm");
     const btn = document.getElementById("submitBtn");
     const status = document.getElementById("statusMessage");
+
+    function setAmount(val) {
+      document.getElementById("amount").value = val;
+    }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -293,7 +462,7 @@
 
         const contentType = response.headers.get("content-type");
         if (!contentType || !contentType.includes("application/json")) {
-          throw new Error(`Route error (${response.status}). Verify /api/stk-push.js is pushed to GitHub.`);
+          throw new Error(`Route error (${response.status}). Verify /api/stk-push.js exists on Vercel.`);
         }
 
         const data = await response.json();
